@@ -1,11 +1,18 @@
 package com.smartprocess.spmodeloDominio.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import com.smartprocess.spmodeloDominio.services.Atividade;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +24,13 @@ public class Participante {
 	private Long id;
 	private String nome;
 	private String email;
+	
+	@ManyToMany
+	@JoinTable(name = "tb_participante_atividade",
+	joinColumns = @JoinColumn(name = "participante_id"),
+	inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+	private Set<Atividade> atividades = new HashSet<>();
+	
 	
 	public Participante() {
 	}
